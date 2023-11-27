@@ -1,0 +1,14 @@
+{
+  "name": "employee-tracker",
+  "version": "1.0.0",
+  "description": "## About  This is an application for viewing and managing the departments, roles, and employees in a company.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^8.2.6"
+  }
+}
