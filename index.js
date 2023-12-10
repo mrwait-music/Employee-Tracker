@@ -10,25 +10,6 @@ let menuOptions = [
     },
 ]
 
-// let addRoles = [
-//     {
-//         type: 'input',
-//         name: 'roleType',
-//         message: 'What role would you like to add?'
-//     },
-//     {
-//         type: 'number',
-//         name: 'salary',
-//         message: 'How much will this role pay/year?'
-//     },
-//     {
-//         type: 'number',
-//         name: 'salary',
-//         message: 'How much will this role pay/year?'
-//     }
-// need to add department as well?
-// ]
-
 
 async function init() {
     const { tasks } = await inquirer.prompt(menuOptions)
@@ -82,7 +63,7 @@ async function addDepartment() {
             },
         ])
     const [data] = await db.promise().query("INSERT INTO department SET ?", response)
-    console.log('NOICE!')
+    console.log('Department added!')
     init()
 }
 async function addRole() {
@@ -101,13 +82,13 @@ async function addRole() {
                 message: 'How much will this role pay/year?'
             },
             {
-                type: 'number',
+                type: 'input',
                 name: 'title',
                 message: 'What is the name of this position?'
             }
         ])
-    const [data] = await db.promise().query("INSERT INTO department SET ?", response)
-    console.log('NOICE!')
+    const [data] = await db.promise().query("INSERT INTO role SET ?", response)
+    console.log('Role added!')
     init()
 }
 async function addEmployee() {
@@ -139,11 +120,34 @@ async function addEmployee() {
             },
         ]
         )
-        const [data] = await db.promise().query("INSERT INTO employee SET ?", response)
-        console.log('NOICE!')
-        init()
-    }
+    const [data] = await db.promise().query("INSERT INTO employee SET ?", response)
+    console.log('Employee added!')
+    init()
+}
 
+async function updateEmployee() {
+    const [employees] = await db.promise().query('SELECT id AS value, CONCAT(first_name, " ", last_name) AS name FROM employee');
+    const [roles] = await db.promise().query('SELECT id AS value, title AS name FROM role');
+
+    const response = await inquirer.prompt([
+        {
+            type: 'list',
+            name: 'employee_id',
+            message: 'Select the employee you want to update:',
+            choices: employees,
+        },
+        {
+            type: 'list',
+            name: 'role_id',
+            message: 'Select the new role for the employee:',
+            choices: roles,
+        },
+    ]);
+
+    const [data] = await db.promise().query('UPDATE employee SET role_id = ? WHERE id = ?', [response.role_id, response.employee_id]);
+    console.log('Employee role updated!');
+    init();
+}
 
 
 
