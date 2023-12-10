@@ -9,7 +9,7 @@ Installation of inquirer at version 8 from npm will be required for this code to
 ## Usage
 This code can be used to keep track of Departments, Roles, and Employees within a company database. 
 
-![Alt text](Note_Taker.gif)
+![Alt text](DB.gif)
 
 ## Contributing
 Special thanks to Eric Sayer for helping me build this application during our tutoring session.
